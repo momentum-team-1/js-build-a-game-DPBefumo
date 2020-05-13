@@ -1,0 +1,14 @@
+canvas {
+    background-color: aqua;
+}
+
+h1 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 5em;
+    text-align: center;
+}
+
+#game-container {
+    margin: auto;
+}
