@@ -1,5 +1,7 @@
+// else if (this.center.x < 0) this.center.x = 0; this will help with the player staying on screen
+
 class Game {
-    constructor () { //variasbles for the game
+    constructor () { //variables for the game
         let canvas = document.getElementById('game-screen')
         let context = canvas.getContext('2d')
         let gameSize = { x: canvas.width, y: canvas.height }
@@ -9,6 +11,9 @@ class Game {
         this.gameElements = this.gameElements.concat(new Player(this, gameSize)) 
         
         let tick = () => {
+            if (this.gameElements.length < 10) {
+                this.gameElements = this.gameElements.concat(createEnemy(this))
+            }
             this.update()
             this.draw(context, gameSize)
             requestAnimationFrame(tick)
@@ -17,7 +22,11 @@ class Game {
     }
     
     update() {
-        //not colliding function needs to be added
+        let noContact = (b1) => {
+            return this.gameElements.filter(function (b2) { return contact(b1, b2) }).length === 0
+        }
+        this.gameElements = this.gameElements.filter(noContact)
+
         for (let i = 0; i < this.gameElements.length; i++) {
             this.gameElements[i].update() 
         }
@@ -40,8 +49,8 @@ class Enemy {
         this.game = game
         this.center = center
         this.size = { x: 15, y: 15 }
-        this.patrolY = -0
-        this.speedY= 0.6
+        this.patrolY = 0
+        this.speedY= 0.9
     }
     update () {
         if (this.patrolY < -10 || this.patrolY > 530) {
@@ -54,7 +63,7 @@ class Enemy {
 
 function createEnemy (game) {
     let enemy = []
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < 40; i++) {
         let x = Math.random() * 300
         let y = Math.random() * 0
         enemy.push(new Enemy(game, { x: x, y: y}))
@@ -74,7 +83,7 @@ class Player {
             this.center.x += 2
         } else if (this.keyboarder.isDown(this.keyboarder.KEYS.LEFT)) {
             this.center.x -= 2
-        } //how to add in the bullet?
+        }
         if (this.keyboarder.isDown(this.keyboarder.KEYS.UP)) {
             let bullet = new Bullet ({ x: this.center.x, y: this.center.y - this.size.y - 10},
             { x: 0, y: -5})
@@ -99,7 +108,7 @@ function drawRect(context, newEl) {
     context.fillRect(newEl.center.x - newEl.size.x / 2, newEl.center.y - newEl.size.y / 2, newEl.size.x, newEl.size.y)
 }
 
-function collinding (b1, b2) {
+function contact (b1, b2) {
     return !(
         b1 === b2 ||
             b1.center.x + b1.size.x / 2 < b2.center.x - b2.size.x / 2 ||
