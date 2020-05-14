@@ -3,18 +3,10 @@ class Game {
       let canvas = document.getElementById('space-invaders')
       let screen = canvas.getContext('2d')
       let gameSize = { x: canvas.width, y: canvas.height }
-  
-      // Create the bodies array to hold the player, invaders and bullets.
       this.bodies = []
-  
-      // Add the invaders to the bodies array.
       this.bodies = this.bodies.concat(createInvaders(this))
-  
-      // Add the player to the bodies array.
       this.bodies = this.bodies.concat(new Player(this, gameSize))
-  
-      // In index.html, there is an audio tag that loads the shooting sound.
-      // Get the shoot sound from the DOM and store it on the game object.
+
       this.shootSound = document.getElementById('shoot-sound')
   
       let tick = () => {
