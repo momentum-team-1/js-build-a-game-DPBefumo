@@ -1,4 +1,5 @@
-// else if (this.center.x < 0) this.center.x = 0; this will help with the player staying on screen
+const playerImg = 'https://png2.cleanpng.com/sh/a03602af49d66801d666dc983aa61a0d/L0KzQYm3V8AzN6h9gpH0aYP2gLBuTgNxaZRqeARqZoSwg8H5igRmNWNpRdV4bYD4hLb5TfdzaaFtgdV8LXPvccTvTf9nNaVmRadrM3HmSYO7gBJiQZc7RqoDOUS6QoO9UcU0OGY8UaQ8Nki2RIO1kP5o/kisspng-spacecraft-sprite-2d-computer-graphics-clash-of-ta-5b3ac924cba9f6.8894722615305792368342.png'
+const enemyImg = 'https://png2.cleanpng.com/sh/686eb70fd83129aa4dc57ca8b438b924/L0KzQYm3VsE0N5xse5H0aYP2gLBuTgBieJZ3RdN8dHX1f7rrTgN1cZRwfeQ2YXTrdcTwlvUueJ1mhtd9LXH2hLb5jBlle146eqQ5ZnXkRIrrWcY4QF83Uas6MEe2RYK8Usg5QGkAUagBNEW4PsH1h5==/kisspng-paper-asteroid-sticker-adhesive-planet-asteroids-5b20fea49d9678.2991073515288889966455.png'
 
 class Game {
     constructor () { //variables for the game
@@ -35,7 +36,15 @@ class Game {
     draw(context, gameSize) {
         context.clearRect(0, 0, gameSize.x, gameSize.y)
         for (let i = 0; i < this.gameElements.length; i++) {
+            if (this.gameElements[i] instanceof Bullet) {
+            drawRect(context, this.gameElements[i], '#a32a05')
+        } else if(this.gameElements[i] instanceof Enemy) {
+                drawRect(context, this.gameElements[i], '#7d807e')
+        } else if(this.gameElements[i] instanceof Player) {
+            drawRect(context, this.gameElements[i], '#7998d4')
+        } else {
             drawRect(context, this.gameElements[i])
+            }
         }
     }
 
@@ -76,7 +85,9 @@ class Player {
         this.game = game
         this.size = { x: 20, y: 20 }
         this.center = { x: gameSize.x / 2, y: gameSize.y - this.size.y * .75 }
+        this.image = playerImg
         this.keyboarder = Keyboarder
+        
     }
     update () {//how do I make the player not go off screen?
         if (this.keyboarder.isDown(this.keyboarder.KEYS.RIGHT)) {
@@ -88,6 +99,12 @@ class Player {
             let bullet = new Bullet ({ x: this.center.x, y: this.center.y - this.size.y - 10},
             { x: 0, y: -5})
             this.game.gameElements.push(bullet)
+        }
+        if (this.center.x < 0) {
+            this.center.x = 0
+        }
+        if (this.center.x > 290) {
+            this.center.x = 290
         }
     }
 }
@@ -104,10 +121,13 @@ class Bullet {
     }
 }
 
-function drawRect(context, newEl) {
-    context.fillRect(newEl.center.x - newEl.size.x / 2, newEl.center.y - newEl.size.y / 2, newEl.size.x, newEl.size.y)
+function drawRect(screen, body, color) {
+    let oldStyle = screen.fillStyle
+    screen.fillStyle = color
+    screen.fillRect(body.center.x - body.size.x / 2, body.center.y - body.size.y / 2,
+        body.size.x, body.size.y)
+    screen.fillStyle = oldStyle
 }
-
 function contact (b1, b2) {
     return !(
         b1 === b2 ||
@@ -118,8 +138,12 @@ function contact (b1, b2) {
     )
 }
 
+
+window.addEventListener('load', function () {
+    new Game()
+})
 // const newGame = document.querySelector('.start-button')
 // newGame.addEventListener('submit', function () {
 //     console.log('workin?')
-    new Game ()
+//     new Game ()
 // })
