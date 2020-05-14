@@ -2,7 +2,7 @@ const playerImg = 'https://png2.cleanpng.com/sh/a03602af49d66801d666dc983aa61a0d
 const enemyImg = 'https://png2.cleanpng.com/sh/686eb70fd83129aa4dc57ca8b438b924/L0KzQYm3VsE0N5xse5H0aYP2gLBuTgBieJZ3RdN8dHX1f7rrTgN1cZRwfeQ2YXTrdcTwlvUueJ1mhtd9LXH2hLb5jBlle146eqQ5ZnXkRIrrWcY4QF83Uas6MEe2RYK8Usg5QGkAUagBNEW4PsH1h5==/kisspng-paper-asteroid-sticker-adhesive-planet-asteroids-5b20fea49d9678.2991073515288889966455.png'
 
 class Game {
-    constructor () { //variables for the game
+    constructor () {
         let canvas = document.getElementById('game-screen')
         let context = canvas.getContext('2d')
         let gameSize = { x: canvas.width, y: canvas.height }
@@ -21,7 +21,7 @@ class Game {
         }
         tick()
     }
-    
+
     update() {
         let noContact = (b1) => {
             return this.gameElements.filter(function (b2) { return contact(b1, b2) }).length === 0
@@ -87,9 +87,8 @@ class Player {
         this.center = { x: gameSize.x / 2, y: gameSize.y - this.size.y * .75 }
         this.image = playerImg
         this.keyboarder = Keyboarder
-        
     }
-    update () {//how do I make the player not go off screen?
+    update () {
         if (this.keyboarder.isDown(this.keyboarder.KEYS.RIGHT)) {
             this.center.x += 2
         } else if (this.keyboarder.isDown(this.keyboarder.KEYS.LEFT)) {
@@ -137,7 +136,6 @@ function contact (b1, b2) {
             b1.center.y - b1.size.y / 2 > b2.center.y + b2.size.y / 2 
     )
 }
-
 
 window.addEventListener('load', function () {
     new Game()
