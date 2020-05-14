@@ -1,14 +1,36 @@
+/* * {
+    outline: 5px solid blueviolet;
+} */
+
+
 canvas {
     background-color: cadetblue;
+    margin: 10px;
 }
 
 h1 {
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: 5em;
+    font-family: 'VT323', monospace;
     text-align: center;
+    text-decoration: underline;
+}
+
+.start-button {
+    font-size: 24px;
+}
+
+.button-box{
+    font-family: 'VT323', monospace;
+    display: flex;
+    justify-content: center;
+    align-content: center;
 }
 
 #game-container {
-    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding-bottom: 10px;
 }

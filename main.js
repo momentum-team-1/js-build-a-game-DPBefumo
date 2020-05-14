@@ -11,7 +11,7 @@ class Game {
         this.gameElements = this.gameElements.concat(new Player(this, gameSize)) 
         
         let tick = () => {
-            if (this.gameElements.length < 10) {
+            if (this.gameElements.length < 1000) {
                 this.gameElements = this.gameElements.concat(createEnemy(this))
             }
             this.update()
@@ -48,12 +48,12 @@ class Enemy {
     constructor (game, center) { 
         this.game = game
         this.center = center
-        this.size = { x: 15, y: 15 }
+        this.size = { x: 20, y: 20 }
         this.patrolY = 0
-        this.speedY= 0.9
+        this.speedY= Math.random() * 5
     }
     update () {
-        if (this.patrolY < -10 || this.patrolY > 530) {
+        if (this.patrolY < -10 || this.patrolY > 640) {
             this.speedY += -this.speedY
         }
         this.center.y += this.speedY
@@ -63,9 +63,9 @@ class Enemy {
 
 function createEnemy (game) {
     let enemy = []
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 1; i++) {
         let x = Math.random() * 300
-        let y = Math.random() * 0
+        let y = -80
         enemy.push(new Enemy(game, { x: x, y: y}))
     }
     return enemy
@@ -118,4 +118,8 @@ function contact (b1, b2) {
     )
 }
 
-new Game ()
+// const newGame = document.querySelector('.start-button')
+// newGame.addEventListener('submit', function () {
+//     console.log('workin?')
+    new Game ()
+// })
