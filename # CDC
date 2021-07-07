@@ -1,0 +1,126 @@
+Pixel War Game 
+
+What does it do? --> Move left to right while avoiding bombs and enemies and shooting to destroy enemies.  Bonus boxes fall down to increase the number of shots you can take at once.
+
+What is involved? --> 
+    > Player to shoot, move left to right
+    > Enemies/bombs to fall from the sky
+    > Bonus boxes to fall from sky
+
+Classes -- what does each class need in its scope?
+    > Game Class
+        Responsiblities
+            > Size of screen -- all are created variables
+                > canvas
+                > context
+                > gameSize --> { x: , y: } 
+                    > Can use the already established canvas width and height
+            > Start/End Game
+                > Create a way to start a new game 
+            > Track score and lives
+            > Collision detection
+                > Player hits enemy/bomb
+                > Bullet hits enemy
+                > Player hits bonus box
+            > Create the animation
+                > function animate () {
+                    //some chage to page
+                    requestAnimationFrame(animate)
+                }
+        Collaborator -- need to add in these guys into the game scope so when a new game is started they respawn.  Also, need to define the method inside the Game object 
+            > Player
+                > Pass in arguments?
+                    > context
+                    > gameSize
+                > create starting position
+                > pass in width and height
+                > create the rectangle
+            > Bomb
+                > Pass in arguments?
+                    > 
+                    > 
+                > create starting position
+                > pass in width and height
+                > create the rectangle
+            > Enemy
+                > Pass in arguments?
+                    > 
+                    > 
+                > create starting position
+                > pass in width and height
+                > create the rectangle
+            > Bonus
+                > Pass in arguments?
+                    > 
+                    > 
+                > create starting position
+                > pass in width and height
+                > create the rectangle
+    
+    > Player Class 
+        Constructor
+            > What arguments do I need to bring in to this class?
+                > gameSize
+        Responsiblities
+            > Size of player
+                > { x: , y: }
+            > Starting position
+                >center of screen?
+            > Move left and right
+            > Ability to shoot on key click
+            > Abilty to shoot more with bonus
+        Collaborator
+            > Bullets
+            > Keyboarder
+            > Bonus
+
+    >Bullet Class
+        Constructor -- how to connect to the game?
+            > What arguments do I need to bring in to this class?
+                > velocity
+                > center
+        Responsiblities
+            > shoot enemy
+            > originate from player position
+            > ability to expand shot range
+        Collaborator
+            > Bonus
+            > Player
+    
+    > Bomb Class
+        Constructor
+            > What arguments do I need to bring in to this class?
+                >
+                >
+        Responsiblities
+            > damage player
+            > can not be killed
+            > falls randomly from the top x axis, multiple times
+        Collaborator
+            > player
+
+    > Enemy Class
+        Constructor
+            > What arguments do I need to bring in to this class?
+                >
+                >
+        Responsiblities
+            > damage player
+            > can be destroyed with a Bullet
+            > falls randomly from the top x axis, multiple times
+        Collaborator
+            > player
+            > bullet
+
+    > Bonus Class
+        Constructor
+            > What arguments do I need to bring in to this class?
+                >
+                >
+        Responsiblities
+            > add an extra shot to Bullet
+            > add a life? 
+        Collaborator
+            > player
+            > bullet
+

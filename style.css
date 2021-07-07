@@ -1,0 +1,37 @@
+* {
+    background-color: #550470;
+}
+
+
+canvas {
+    background-image: url('resources/space-bckrnd.png');
+}
+
+h2 {
+    /* padding-top: 10px;
+    padding-bottom: 10px; */
+    font-size: 5em;
+    font-family: 'VT323', monospace;
+    text-align: center;
+    text-decoration: underline;
+    margin-bottom: -.5rem;
+}
+
+.start-button {
+    font-size: 24px;
+}
+
+/* .button-box{
+    font-family: 'VT323', monospace;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+} */
+
+#game-container {
+    margin-top: -10px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding-bottom: 10px;
+}
